@@ -11,19 +11,19 @@ import java.util.ArrayList;
 
 public class GuitarsCategories extends AppCompatActivity implements View.OnClickListener {
     ArrayList<InstrumentCategory> listaInstrumentos;
-    RecyclerView recyclerView;
+    RecyclerView recyclerViewGuitars;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guitars_categories);
-        recyclerView=findViewById(R.id.recyclerView);
+        recyclerViewGuitars =findViewById(R.id.recyclerViewGuitars);
         listaInstrumentos=new ArrayList<>();
         llenarInstrumentos();
         InstrumentsAdapter instrumentsAdapter=new InstrumentsAdapter(listaInstrumentos,this);
         LinearLayoutManager llm=new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
-        recyclerView.setAdapter(instrumentsAdapter);
+        recyclerViewGuitars.setLayoutManager(llm);
+        recyclerViewGuitars.setAdapter(instrumentsAdapter);
     }
 
     private void llenarInstrumentos() {

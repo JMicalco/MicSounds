@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,10 +18,10 @@ public class Navegation extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navegation);
-        recyclerView=findViewById(R.id.recyclerView);
+        recyclerView=findViewById(R.id.recyclerViewInstruments);
         listaInstrumentos=new ArrayList<>();
         llenarInstrumentos();
-        InstrumentsAdapter instrumentsAdapter=new InstrumentsAdapter(listaInstrumentos,this);
+        InstrumentsAdapter instrumentsAdapter=new InstrumentsAdapter(listaInstrumentos, this);
         LinearLayoutManager llm=new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
@@ -38,9 +37,9 @@ public class Navegation extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        int pos = recyclerView.getChildLayoutPosition(v);
+        int pos =recyclerView.getChildViewHolder(v).getAdapterPosition();
         Intent intent= new Intent(this, GuitarsCategories.class);
-        if (listaInstrumentos.get(pos).nombreInstrumento=="Guitars"){
+        if (listaInstrumentos.get(pos).nombreInstrumento.equals("Guitars")){
             startActivity(intent);
         }
     }

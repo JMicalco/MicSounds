@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,8 @@ public class InstrumentsAdapter extends RecyclerView.Adapter<InstrumentsAdapter.
     public ViewHolderInstrumentos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.instruments_category,null,false);
         view.setOnClickListener(listener);
-        return new ViewHolderInstrumentos(view);
+        ViewHolderInstrumentos vh=new ViewHolderInstrumentos(view);
+        return vh;
     }
 
     @Override
@@ -42,11 +44,11 @@ public class InstrumentsAdapter extends RecyclerView.Adapter<InstrumentsAdapter.
 
     public class ViewHolderInstrumentos extends RecyclerView.ViewHolder {
         TextView titulo;
-        ImageButton imagen;
+        ImageView imagen;
         public ViewHolderInstrumentos(@NonNull View itemView) {
             super(itemView);
             titulo=itemView.findViewById(R.id.textView4);
-            imagen= itemView.findViewById(R.id.imageButton);
+            imagen= itemView.findViewById(R.id.imageView);
         }
 
     };

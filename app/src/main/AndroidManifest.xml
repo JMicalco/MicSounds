@@ -9,11 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".GuitarsCategories"></activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Navegation">
+        <activity android:name=".Keyboards"></activity>
+        <activity android:name=".ElectricDrums" />
+        <activity android:name=".AcousticDrums" />
+        <activity android:name=".ClassicalGuitars" />
+        <activity android:name=".AcousticGuitars" />
+        <activity android:name=".ElectricGuitars" />
+        <activity android:name=".Bass" />
+        <activity android:name=".DrumsCategories" />
+        <activity android:name=".GuitarsCategories" />
+        <activity android:name=".Navegation" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

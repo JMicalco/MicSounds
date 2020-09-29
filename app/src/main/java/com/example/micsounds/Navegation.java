@@ -38,9 +38,18 @@ public class Navegation extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         int pos =recyclerView.getChildViewHolder(v).getAdapterPosition();
-        Intent intent= new Intent(this, GuitarsCategories.class);
+        Intent intentGuitars= new Intent(this, GuitarsCategories.class);
+        Intent intentDrums= new Intent(this, DrumsCategories.class);
+        Intent intentBass= new Intent(this, Bass.class);
+        Intent intentKeyboards=new Intent(this, Keyboards.class);
         if (listaInstrumentos.get(pos).nombreInstrumento.equals("Guitars")){
-            startActivity(intent);
+            startActivity(intentGuitars);
+        } else if (listaInstrumentos.get(pos).nombreInstrumento.equals("Drums")) {
+            startActivity(intentDrums);
+        } else if (listaInstrumentos.get(pos).nombreInstrumento.equals("Bass")) {
+            startActivity(intentBass);
+        } else if (listaInstrumentos.get(pos).nombreInstrumento.equals("Keyboards")) {
+            startActivity(intentBass);
         }
     }
 }

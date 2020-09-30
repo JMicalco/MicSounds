@@ -4,10 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
 import android.os.Bundle;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,26 +14,23 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Keyboards extends AppCompatActivity {
+public class Keyboards extends AppCompatActivity { //----- CHANGE INSTANCE -----
 
     // Widgets
     RecyclerView recyclerView;
 
-    // Firebase
-    private DatabaseReference myRef;
     private DatabaseReference myARef;
 
     // Variables
     private ArrayList<Population> populationsList;
     private RecyclerAdapter recyclerAdapter;
-    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_keyboards);
+        setContentView(R.layout.activity_keyboards); //----- CHANGE INSTANCE -----
 
-        recyclerView = findViewById(R.id.recyclerViewKeyboards);
+        recyclerView = findViewById(R.id.recyclerViewKeyboards); //----- CHANGE INSTANCE -----
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -58,8 +52,9 @@ public class Keyboards extends AppCompatActivity {
     private void GetDataFromFirebase() {
 
         //Aqui se pone el instrumento
-        myRef = myARef.child("Population");
-        Query query = myRef.child("Keyboards");
+        // Firebase
+        DatabaseReference myRef = myARef.child("Population");
+        Query query = myRef.child("Keyboards"); //----- CHANGE INSTANCE -----
 
         query.addValueEventListener(new ValueEventListener() {
             @Override

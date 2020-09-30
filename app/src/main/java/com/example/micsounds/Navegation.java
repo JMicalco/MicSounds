@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -14,6 +17,9 @@ public class Navegation extends AppCompatActivity implements View.OnClickListene
 
     ArrayList<InstrumentCategory> listaInstrumentos;
     RecyclerView recyclerView;
+    Button fav, logout;
+    FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +32,23 @@ public class Navegation extends AppCompatActivity implements View.OnClickListene
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(instrumentsAdapter);
+
+        fav = findViewById(R.id.button2);
+        logout = findViewById(R.id.button5);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent i = new Intent(Navegation.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+    }
+
+    public void gotoFav(View v){
+        Intent intent=new Intent(Navegation.this, favorites.class);
+        startActivity(intent);
     }
 
     private void llenarInstrumentos() {

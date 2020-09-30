@@ -49,7 +49,7 @@ public class Navegation extends AppCompatActivity implements View.OnClickListene
         } else if (listaInstrumentos.get(pos).nombreInstrumento.equals("Bass")) {
             startActivity(intentBass);
         } else if (listaInstrumentos.get(pos).nombreInstrumento.equals("Keyboards")) {
-            startActivity(intentBass);
+            startActivity(intentKeyboards);
         }
     }
 }

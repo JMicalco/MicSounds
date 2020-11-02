@@ -20,13 +20,15 @@
         <activity android:name=".DrumsCategories" />
         <activity android:name=".GuitarsCategories" />
         <activity android:name=".Navegation" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"/>
+        <activity android:name="Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

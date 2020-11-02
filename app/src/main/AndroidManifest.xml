@@ -21,7 +21,7 @@
         <activity android:name=".GuitarsCategories" />
         <activity android:name=".Navegation" />
         <activity android:name=".MainActivity"/>
-        <activity android:name="Splash">
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

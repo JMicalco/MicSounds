@@ -22,8 +22,8 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="196dp"
-        android:layout_height="70dp"
+        android:layout_width="166dp"
+        android:layout_height="42dp"
         android:layout_marginBottom="39dp"
         android:onClick="goToLogin"
         android:text="Login"
@@ -34,8 +34,8 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="154dp"
-        android:layout_height="84dp"
+        android:layout_width="161dp"
+        android:layout_height="41dp"
         android:layout_marginBottom="107dp"
         android:onClick="goToSignUp"
         android:text="Register"

@@ -50,6 +50,10 @@ public class Navegation extends AppCompatActivity implements View.OnClickListene
         Intent intent=new Intent(Navegation.this, favorites.class);
         startActivity(intent);
     }
+    public void goToCarrito(View v){
+        Intent intent=new Intent(Navegation.this, Carrito.class);
+        startActivity(intent);
+    }
 
     private void llenarInstrumentos() {
         listaInstrumentos.add(new InstrumentCategory("Guitars",R.drawable.guitars));

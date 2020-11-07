@@ -44,7 +44,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/btnCarrito"
+                android:id="@+id/btnCarrito2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -53,7 +53,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="271dp"
                 android:layout_marginEnd="298dp"
-                android:text="Carrito" />
+                android:text="Cart" />
 
             <Button
                 android:id="@+id/btnFav"
@@ -65,7 +65,7 @@
                 android:layout_marginStart="143dp"
                 android:layout_marginTop="271dp"
                 android:layout_marginEnd="165dp"
-                android:text="Favoritos" />
+                android:text="Favorites" />
 
             <Button
                 android:id="@+id/btnCompartir"
@@ -77,7 +77,7 @@
                 android:layout_marginStart="282dp"
                 android:layout_marginTop="271dp"
                 android:layout_marginEnd="25dp"
-                android:text="Compartir" />
+                android:text="Share" />
 
         </RelativeLayout>
 

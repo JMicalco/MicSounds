@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,15 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> implements Filterable {
 
     private Context mContext;
-    private ArrayList<Population> populationArrayList;
+    private ArrayList<Population> populationArrayList, copylist;
 
     public RecyclerAdapter(Context mContext, ArrayList<Population> populationArrayList) {
         this.mContext = mContext;
         this.populationArrayList = populationArrayList;
+        this.copylist = new ArrayList<>(populationArrayList);
     }
 
     public String give$format(double num) {
@@ -92,6 +96,38 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public int getItemCount() {
         return populationArrayList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return guitarFilter;
+    }
+
+    private Filter guitarFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Population> filteredList = new ArrayList<>();
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(copylist);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(Population item: copylist){
+                    if(item.getName().toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            populationArrayList.clear();
+            populationArrayList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

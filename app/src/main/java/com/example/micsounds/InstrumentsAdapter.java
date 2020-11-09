@@ -3,6 +3,8 @@ package com.example.micsounds;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,14 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InstrumentsAdapter extends RecyclerView.Adapter<InstrumentsAdapter.ViewHolderInstrumentos> {
 
-   protected ArrayList<InstrumentCategory> listaInstrumentos;
+   protected ArrayList<InstrumentCategory> listaInstrumentos, copyList;
    protected View.OnClickListener listener;
 
     public InstrumentsAdapter(ArrayList<InstrumentCategory> listaInstrumentos, View.OnClickListener listener) {
         this.listaInstrumentos = listaInstrumentos;
+        this.copyList = new ArrayList<>(listaInstrumentos);
         this.listener=listener;
     }
 
@@ -42,6 +46,8 @@ public class InstrumentsAdapter extends RecyclerView.Adapter<InstrumentsAdapter.
         return listaInstrumentos.size();
     }
 
+
+
     public class ViewHolderInstrumentos extends RecyclerView.ViewHolder {
         TextView titulo;
         ImageView imagen;
@@ -52,4 +58,6 @@ public class InstrumentsAdapter extends RecyclerView.Adapter<InstrumentsAdapter.
         }
 
     };
+
+
 }

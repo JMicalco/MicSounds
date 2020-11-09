@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
+import android.widget.SearchView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +20,7 @@ public class ElectricGuitars extends AppCompatActivity { //----- CHANGE INSTANCE
 
     // Widgets
     RecyclerView recyclerView;
+    SearchView searchView;
 
     private DatabaseReference myARef;
 
@@ -35,7 +38,20 @@ public class ElectricGuitars extends AppCompatActivity { //----- CHANGE INSTANCE
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+        searchView = findViewById(R.id.searchView6);
+        searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                recyclerAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         // Firebase
         myARef = FirebaseDatabase.getInstance().getReference("Global");
 

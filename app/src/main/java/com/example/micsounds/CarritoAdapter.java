@@ -41,7 +41,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
         this.copylist = new ArrayList<>(populationArrayList);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        cart = false;
+
     }
 
     public String give$format(double num) {
@@ -140,10 +140,6 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
 
         @Override
         public void onClick(View view) {
-
-
-
-
 
         }
     }

@@ -1,30 +1,49 @@
 package com.example.micsounds;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.FavoritosViewHolder> {
+public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.ViewHolder> implements Filterable {
 
     private Context mContext;
-    private ArrayList<Population> populationArrayList;
+    private ArrayList<Population> populationArrayList, copylist;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+    private boolean cart;
 
-    public FavoritosAdapter(Context mContext, ArrayList<Population> populationArrayList) {
+    public FavoritosAdapter (Context mContext, ArrayList<Population> populationArrayList) {
         this.mContext = mContext;
         this.populationArrayList = populationArrayList;
+        this.copylist = new ArrayList<>(populationArrayList);
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
     }
+
     public String give$format(double num) {
 
         NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
@@ -32,34 +51,24 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
 
     }
 
-
     @NonNull
     @Override
-    public FavoritosAdapter.FavoritosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavoritosAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+
+
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.favoritos_items, parent, false);
 
-        Button btnCarrito= view.findViewById(R.id.btnCarrito2);
-        btnCarrito.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Codigo para agregar a carrito;
-            }
-        });
-        Button btnEliminar= view.findViewById(R.id.btnEl);
-        btnEliminar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Codigo para eliminar de carrito
-            }
-        });
 
-        return new FavoritosViewHolder(view);
+
+
+        return  new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavoritosViewHolder holder, int position) {
-// TextView
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        // TextView
         holder.textView.setText(populationArrayList.get(position).getName());
 
         // price
@@ -79,18 +88,60 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
         return populationArrayList.size();
     }
 
-    public class FavoritosViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public Filter getFilter() {
+        return guitarFilter;
+    }
+
+
+
+    private Filter guitarFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Population> filteredList = new ArrayList<>();
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(copylist);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(Population item: copylist){
+                    if(item.getName().toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            populationArrayList.clear();
+            populationArrayList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
         TextView textView;
         TextView textView3;
 
-        public FavoritosViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.imageView4);
             textView  = itemView.findViewById(R.id.textView3);
             textView3 = itemView.findViewById(R.id.textView5);
         }
+
+
+
+        @Override
+        public void onClick(View view) {
+
+        }
     }
+
 }

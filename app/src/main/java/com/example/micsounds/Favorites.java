@@ -26,7 +26,7 @@ public class Favorites extends AppCompatActivity { //----- CHANGE INSTANCE -----
 
     // Variables
     private ArrayList<Population> populationsList;
-    private RecyclerAdapter recyclerAdapter;
+    private FavoritosAdapter recyclerAdapter;
 
     private FirebaseAuth mAuth;
 
@@ -42,7 +42,7 @@ public class Favorites extends AppCompatActivity { //----- CHANGE INSTANCE -----
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        searchView = findViewById(R.id.searchView3);
+        /*searchView = findViewById(R.id.searchView3);
         searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -55,7 +55,7 @@ public class Favorites extends AppCompatActivity { //----- CHANGE INSTANCE -----
                 recyclerAdapter.getFilter().filter(newText);
                 return false;
             }
-        });
+        });*/
         // Firebase
         myARef = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -84,8 +84,12 @@ public class Favorites extends AppCompatActivity { //----- CHANGE INSTANCE -----
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ClearAll();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Population population = new Population();
 
+                    if (!snapshot.hasChildren()) {
+                        continue;
+                    }
+
+                    Population population = new Population();
                     population.setImageUrl(snapshot.child("image").getValue().toString());
                     population.setName(snapshot.child("name").getValue().toString());
                     population.setPrice(Integer.parseInt(snapshot.child("price").getValue().toString()));
@@ -93,7 +97,7 @@ public class Favorites extends AppCompatActivity { //----- CHANGE INSTANCE -----
                     populationsList.add(population);
                 }
 
-                recyclerAdapter = new RecyclerAdapter(getApplicationContext(), populationsList);
+                recyclerAdapter = new FavoritosAdapter(getApplicationContext(), populationsList);
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerAdapter.notifyDataSetChanged();
             }

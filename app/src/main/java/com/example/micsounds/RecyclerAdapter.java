@@ -78,19 +78,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 //Toast.makeText(mContext, "Favoritos", Toast.LENGTH_SHORT).show();
             }
         });
-        Button btnShare= view.findViewById(R.id.btnCompartir);
-        final String shareView= "info para compartir";
-        btnShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Toast.makeText(mContext, "Compartir", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(Intent.ACTION_SEND);
-                intent.setType("text/pain");
-                intent.putExtra(Intent.EXTRA_SUBJECT,"ITEM");
-                intent.putExtra(Intent.EXTRA_TEXT,shareView);
-                mContext.startActivity(intent.createChooser(intent,"Compartir"));
-            }
-        });
         return  new ViewHolder(view);
     }
 

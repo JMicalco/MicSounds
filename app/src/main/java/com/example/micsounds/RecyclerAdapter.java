@@ -156,6 +156,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         Button btnCarrito;
         Button btnFav;
+        Button btnCompartir;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -165,6 +166,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
             btnFav = itemView.findViewById(R.id.btnFav);
             btnFav.setOnClickListener(this);
+
+            btnCompartir = itemView.findViewById(R.id.btnCompartir);
+            btnCompartir.setOnClickListener(this);
+
+
 
             imageView = itemView.findViewById(R.id.imageView);
             textView  = itemView.findViewById(R.id.textView_2);
@@ -227,6 +233,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
                 Toast.makeText(mContext, "Agregado a favoritos", Toast.LENGTH_SHORT).show();
 
+            } else if(view.getId() == btnCompartir.getId()){
+                final String shareView= "Item: "+ textView.getText().toString() + " Price:" + textView3.getText().toString();
+                Intent intent=new Intent(Intent.ACTION_SEND);
+                intent.setType("text/pain");
+                intent.putExtra(Intent.EXTRA_SUBJECT,"ITEM");
+                intent.putExtra(Intent.EXTRA_TEXT,shareView);
+                mContext.startActivity(intent.createChooser(intent,"Compartir"));
             }
 
         }

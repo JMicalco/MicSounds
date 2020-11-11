@@ -33,10 +33,11 @@
 
     <SearchView
         android:id="@+id/searchView"
-        android:layout_width="416dp"
-        android:layout_height="58dp"
+        android:layout_width="381dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="65dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewAcousticDrums"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar10" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

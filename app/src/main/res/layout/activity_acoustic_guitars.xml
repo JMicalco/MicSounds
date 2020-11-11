@@ -40,13 +40,11 @@
 
     <SearchView
         android:id="@+id/searchView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="620dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="381dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="65dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewAcousticGuitars"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar9" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

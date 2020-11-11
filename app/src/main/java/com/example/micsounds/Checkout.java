@@ -20,7 +20,7 @@ public class Checkout extends AppCompatActivity {
         //Codigo para agrgar historial de pedido de compra al usuario
 
 
-        Intent intent=new Intent(Checkout.this, Navegation.class);
+        Intent intent=new Intent(Checkout.this, Navigation.class);
         startActivity(intent);
     }
 

@@ -2,6 +2,7 @@ package com.example.micsounds;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +16,32 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> implements Filterable {
 
     private Context mContext;
     private ArrayList<Population> populationArrayList, copylist;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+    private boolean cart;
 
     public RecyclerAdapter(Context mContext, ArrayList<Population> populationArrayList) {
         this.mContext = mContext;
         this.populationArrayList = populationArrayList;
         this.copylist = new ArrayList<>(populationArrayList);
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        cart = false;
     }
 
     public String give$format(double num) {
@@ -41,17 +55,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+
+
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.population_item, parent, false);
+                .inflate(R.layout.population_item, parent, false);// ---------change
+
+        TextView textViewName = view.findViewById(R.id.textView2);
+        TextView textViewPrice = view.findViewById(R.id.textView3);
 
         Button btnCarrito= view.findViewById(R.id.btnCarrito2);
         btnCarrito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Carrito", Toast.LENGTH_SHORT).show();
-                //Log.e("hola","hola");
+                //addCart(view);
+
             }
         });
+
+
+
+
+
+
         Button btnFav= view.findViewById(R.id.btnFav);
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +127,40 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return guitarFilter;
     }
 
+    public void addCart(View view) {
+
+        //String name = populationArrayList.get(0).getName()
+
+        TextView txName = view.findViewById(R.id.textView2);
+        TextView txPrice = view.findViewById(R.id.textView3);
+
+        String name = txName.getText().toString();
+
+        int price = Integer.parseInt(txPrice.getText().toString());
+
+        String image = populationArrayList.get(getItemCount()).imageUrl + "";
+
+        Toast.makeText(mContext, "Agregado al carrito", Toast.LENGTH_SHORT).show();
+
+        String user_id = mAuth.getCurrentUser().getUid();
+
+        DatabaseReference cart_user_db = FirebaseDatabase.getInstance().getReference()
+                .child("Users").child(user_id).child("Cart");
+
+        String key = cart_user_db.push().getKey();
+        Population item = new Population(name, price, image);
+        Map<String, Object> postValues = item.toMap();
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/Users/" + key, postValues);
+        childUpdates.put("/Users/" + user_id + "/Cart/" + key, postValues);
+
+        mDatabase.updateChildren(childUpdates);
+
+        //Log.e("hola","hola");
+
+    }
+
     private Filter guitarFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -129,18 +188,73 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     };
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
         TextView textView;
         TextView textView3;
 
+        Button btnCarrito;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            btnCarrito = itemView.findViewById(R.id.btnCarrito2);
+            btnCarrito.setOnClickListener(this);
 
             imageView = itemView.findViewById(R.id.imageView);
             textView  = itemView.findViewById(R.id.textView_2);
             textView3 = itemView.findViewById(R.id.textView_3);
+        }
+
+        public int eraseFormat(String price) {
+            NumberFormat numberFormat = NumberFormat.getNumberInstance();
+
+            //numberFormat.parse(price);
+
+            return 0;
+
+        }
+
+        @Override
+        public void onClick(View view) {
+
+
+
+            Log.wtf("testt","test");
+            //Toast.makeText(mContext, "Agregado al carrito", Toast.LENGTH_SHORT).show();
+            //addCart(view);
+
+
+            //String name = populationArrayList.get(0).getName()
+
+            String name = textView.getText().toString();
+
+            //int price = eraseFormat(textView3.getText().toString());
+
+            int price = populationArrayList.get(getAdapterPosition()).getPrice();
+
+            String image = populationArrayList.get(getAdapterPosition()).getImageUrl() + "";
+
+            Toast.makeText(mContext, "Agregado al carrito", Toast.LENGTH_SHORT).show();
+
+            String user_id = mAuth.getCurrentUser().getUid();
+
+            DatabaseReference cart_user_db = FirebaseDatabase.getInstance().getReference()
+                    .child("Users").child(user_id).child("Cart");
+
+            String key = cart_user_db.push().getKey();
+            Population item = new Population(name, price, image);
+            Map<String, Object> postValues = item.toMap();
+
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/Users/" + key, postValues);
+            childUpdates.put("/Users/" + user_id + "/Cart/" + key, postValues);
+
+            mDatabase.updateChildren(childUpdates);
+
+            //Log.e("hola","hola");
+
         }
     }
 

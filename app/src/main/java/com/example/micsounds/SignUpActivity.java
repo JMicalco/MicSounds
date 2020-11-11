@@ -15,8 +15,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class SigninActivity extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class SignUpActivity extends AppCompatActivity {
 
     EditText user;
     EditText password;
@@ -36,11 +41,11 @@ public class SigninActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser mUser = mAuth.getCurrentUser();
                 if(mUser != null){
-                    Toast.makeText(SigninActivity.this, "you are logged in", Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(SigninActivity.this, Navegation.class);
+                    Toast.makeText(SignUpActivity.this, "you are logged in", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(SignUpActivity.this, Navigation.class);
                     startActivity(intent);
                 } else{
-                    Toast.makeText(SigninActivity.this, "please sign up", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "please sign up", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -57,20 +62,38 @@ public class SigninActivity extends AppCompatActivity {
                     password.setError("enter password");
                     password.requestFocus();
                 } else if (!(email.isEmpty() && pwd.isEmpty())) {
-                    mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(SigninActivity.this, new OnCompleteListener<AuthResult>() {
+                    mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(SigninActivity.this, "Sign Up error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, "Sign Up error", Toast.LENGTH_SHORT).show();
 
                             } else {
-                                Intent intent = new Intent(SigninActivity.this, Navegation.class);
+                                String user_id = mAuth.getCurrentUser().getUid();
+                                DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
+
+                                DatabaseReference favorites_user_db = current_user_db.child("Favorites");
+
+                                DatabaseReference cart_user_db = current_user_db.child("Cart");
+
+
+
+                                Map favorites = new HashMap();
+                                favorites.put("empty", "No favorites");
+
+                                Map cart = new HashMap();
+                                cart.put("empty", "Cart empty");
+
+                                favorites_user_db.setValue(favorites);
+                                cart_user_db.setValue(cart);
+
+                                Intent intent = new Intent(SignUpActivity.this, Navigation.class);
                                 startActivity(intent);
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(SigninActivity.this, "ERROR OCURRED!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "ERROR OCURRED!", Toast.LENGTH_SHORT).show();
 
                 }
             }

@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-public class Navegation extends AppCompatActivity implements View.OnClickListener {
+public class Navigation extends AppCompatActivity implements View.OnClickListener {
 
     ArrayList<InstrumentCategory> listaInstrumentos;
     RecyclerView recyclerView;
@@ -39,7 +39,7 @@ public class Navegation extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent i = new Intent(Navegation.this, MainActivity.class);
+                Intent i = new Intent(Navigation.this, MainActivity.class);
                 startActivity(i);
             }
         });
@@ -47,11 +47,11 @@ public class Navegation extends AppCompatActivity implements View.OnClickListene
     }
 
     public void gotoFav(View v){
-        Intent intent=new Intent(Navegation.this, favorites.class);
+        Intent intent=new Intent(Navigation.this, Favorites.class);
         startActivity(intent);
     }
     public void goToCarrito(View v){
-        Intent intent=new Intent(Navegation.this, Carrito.class);
+        Intent intent=new Intent(Navigation.this, Cart.class);
         startActivity(intent);
     }
 

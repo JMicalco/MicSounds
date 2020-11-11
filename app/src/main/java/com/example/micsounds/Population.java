@@ -1,5 +1,8 @@
 package com.example.micsounds;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Population {
 
     // Model Class
@@ -41,6 +44,15 @@ public class Population {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("price", price);
+        result.put("image", imageUrl);
+
+        return result;
     }
 
 }

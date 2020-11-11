@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".Checkout"></activity>
-        <activity android:name=".Carrito" />
-        <activity android:name=".SigninActivity" />
+        <activity android:name=".Cart" />
+        <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".favorites" />
+        <activity android:name=".Favorites" />
         <activity android:name=".Keyboards" />
         <activity android:name=".ElectricDrums" />
         <activity android:name=".AcousticDrums" />
@@ -23,7 +23,7 @@
         <activity android:name=".Bass" />
         <activity android:name=".DrumsCategories" />
         <activity android:name=".GuitarsCategories" />
-        <activity android:name=".Navegation" />
+        <activity android:name=".Navigation" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Splash">
             <intent-filter>

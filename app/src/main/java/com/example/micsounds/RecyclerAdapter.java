@@ -248,7 +248,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             Map<String, Object> postValues = item.toMap();
 
             Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("/Users/" + key, postValues);
+            //childUpdates.put("/Users/" + key, postValues);
             childUpdates.put("/Users/" + user_id + "/Cart/" + key, postValues);
 
             mDatabase.updateChildren(childUpdates);

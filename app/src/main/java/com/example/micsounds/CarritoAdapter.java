@@ -18,8 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -33,7 +37,9 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
     private ArrayList<Population> populationArrayList, copylist;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private boolean cart;
+
+    String user_id;
+    DatabaseReference cart_user_db;
 
     public CarritoAdapter (Context mContext, ArrayList<Population> populationArrayList) {
         this.mContext = mContext;
@@ -41,7 +47,9 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
         this.copylist = new ArrayList<>(populationArrayList);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
+        user_id = mAuth.getCurrentUser().getUid();
+        cart_user_db = FirebaseDatabase.getInstance().getReference()
+                .child("Users").child(user_id).child("Cart");
     }
 
     public String give$format(double num) {
@@ -127,21 +135,79 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
         ImageView imageView;
         TextView textView;
         TextView textView3;
+        Button eliminar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.imageViewCarrito);
-            textView  = itemView.findViewById(R.id.textViewC1);
+            textView = itemView.findViewById(R.id.textViewC1);
             textView3 = itemView.findViewById(R.id.textViewC2);
-        }
+            eliminar = itemView.findViewById(R.id.btnEliminar);
 
+            eliminar.setOnClickListener(this);
+        }
 
 
         @Override
         public void onClick(View view) {
 
+            if (view.getId() == eliminar.getId()) {
+
+                Query query = cart_user_db; //----- CHANGE INSTANCE -----
+
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+
+                        int index = getAdapterPosition();
+
+                        if(index != -1) {
+
+                            //Log.wtf("adapter",getAdapterPosition() + "");
+
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+
+                                if (!snapshot.hasChildren()) {
+                                    continue;
+                                }
+
+
+                                if (snapshot.child("name").getValue().
+                                        equals(populationArrayList.get(index).
+                                                getName())) {
+                                    snapshot.getRef().removeValue();
+                                    populationArrayList.remove(index);
+                                    break;
+                                }
+
+                                //index++;
+
+                            }
+
+//                        recyclerAdapter = new CarritoAdapter(getApplicationContext(), populationsList);
+//                        recyclerView.setAdapter(recyclerAdapter);
+//                        recyclerAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+                });
+
+
+
+
+                //cart_user_db.removeValue();
+
+            }
         }
     }
-
 }

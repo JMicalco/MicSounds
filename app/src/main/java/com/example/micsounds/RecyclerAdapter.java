@@ -164,15 +164,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             textView3 = itemView.findViewById(R.id.textView_3);
         }
 
-        public int eraseFormat(String price) {
-            NumberFormat numberFormat = NumberFormat.getNumberInstance();
-
-            //numberFormat.parse(price);
-
-            return 0;
-
-        }
-
         @Override
         public void onClick(View view) {
 

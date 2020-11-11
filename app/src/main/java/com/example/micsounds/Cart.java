@@ -84,10 +84,12 @@ public class Cart extends AppCompatActivity { //----- CHANGE INSTANCE -----
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ClearAll();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    if (!snapshot.hasChildren()) {
+                        continue;
+                    }
+
                     Population population = new Population();
-
-
-
                     population.setImageUrl(snapshot.child("image").getValue().toString());
                     population.setName(snapshot.child("name").getValue().toString());
                     population.setPrice(Integer.parseInt(snapshot.child("price").getValue().toString()));

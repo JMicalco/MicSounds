@@ -192,6 +192,8 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
 //                        recyclerView.setAdapter(recyclerAdapter);
 //                        recyclerAdapter.notifyDataSetChanged();
 
+                            Toast.makeText(mContext, "borrado del carrito", Toast.LENGTH_SHORT).show();
+
                         }
                     }
 

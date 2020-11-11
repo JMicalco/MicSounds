@@ -72,6 +72,7 @@
         android:layout_marginStart="120dp"
         android:layout_marginTop="9dp"
         android:layout_marginBottom="1dp"
+        android:onClick="goToOrders"
         android:text="Orders"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewInstruments"
         app:layout_constraintHorizontal_chainStyle="packed"

@@ -76,6 +76,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                                 DatabaseReference cart_user_db = current_user_db.child("Cart");
 
+                                DatabaseReference orders_user_db = current_user_db.child("Orders");
+
 
 
                                 Map favorites = new HashMap();
@@ -84,8 +86,12 @@ public class SignUpActivity extends AppCompatActivity {
                                 Map cart = new HashMap();
                                 cart.put("empty", "Cart empty");
 
+                                Map orders = new HashMap();
+                                orders.put("empty", "no orders");
+
                                 favorites_user_db.setValue(favorites);
                                 cart_user_db.setValue(cart);
+                                orders_user_db.setValue(orders);
 
                                 Intent intent = new Intent(SignUpActivity.this, Navigation.class);
                                 startActivity(intent);

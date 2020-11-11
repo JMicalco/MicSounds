@@ -1,26 +1,27 @@
 package com.example.micsounds;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class OrdersInfo {
 
     private String date,
-                    hours,
                     items,
                     price;
 
-    public OrdersInfo(String date, String hours, String items, String price) {
+    public OrdersInfo() {
+
+    }
+
+    public OrdersInfo(String date, String items, String price) {
         this.date = date;
-        this.hours = hours;
         this.items = items;
         this.price = price;
     }
 
     public String getDate() {
         return date;
-    }
-
-    public String getHours() {
-        return hours;
     }
 
     public String getItems() {
@@ -35,10 +36,6 @@ public class OrdersInfo {
         this.date = date;
     }
 
-    public void setHours(String hours) {
-        this.hours = hours;
-    }
-
     public void setItems(String items) {
         this.items = items;
     }
@@ -46,4 +43,15 @@ public class OrdersInfo {
     public void setPrice(String price) {
         this.price = price;
     }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("date", date);
+        result.put("price", price);
+        result.put("items", items);
+
+        return result;
+    }
+
+
 }

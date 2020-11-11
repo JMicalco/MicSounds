@@ -55,6 +55,11 @@ public class Navigation extends AppCompatActivity implements View.OnClickListene
         startActivity(intent);
     }
 
+    public void goToOrders(View v){
+        Intent intent = new Intent(Navigation.this, Orders.class);
+        startActivity(intent);
+    }
+
     private void llenarInstrumentos() {
         listaInstrumentos.add(new InstrumentCategory("Guitars",R.drawable.guitars));
         listaInstrumentos.add(new InstrumentCategory("Bass", R.drawable.bass));

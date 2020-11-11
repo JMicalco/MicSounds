@@ -19,18 +19,18 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidosV
     @NonNull
 
     private Context mContext;
-    private ArrayList<OrdersInfo> populationArrayList, copylist;
+    private ArrayList<OrdersInfo> ordersArrayList, copylist;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private boolean cart;
 
-    public  PedidosAdapter(Context mContext, ArrayList<OrdersInfo> populationArrayList) {
+
+    public  PedidosAdapter(Context mContext, ArrayList<OrdersInfo> ordersArrayList) {
         this.mContext = mContext;
-        this.populationArrayList = populationArrayList;
-        this.copylist = new ArrayList<>(populationArrayList);
+        this.ordersArrayList = ordersArrayList;
+        this.copylist = new ArrayList<>(ordersArrayList);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        cart = false;
+
     }
 
     public PedidosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,28 +42,27 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidosV
     @Override
     public void onBindViewHolder(@NonNull PedidosViewHolder holder, int position) {
         // TextView
-        holder.fecha.setText(populationArrayList.get(position).getDate());
-        holder.hora.setText(populationArrayList.get(position).getHours());
-        holder.items.setText(populationArrayList.get(position).getItems());
-        holder.precio.setText(populationArrayList.get(position).getPrice());
+        holder.fecha.setText(ordersArrayList.get(position).getDate());
+
+        holder.items.setText(ordersArrayList.get(position).getItems());
+        holder.precio.setText(ordersArrayList.get(position).getPrice());
     }
 
     @Override
     public int getItemCount() {
-        return populationArrayList.size();
+        return ordersArrayList.size();
     }
 
     public class PedidosViewHolder extends RecyclerView.ViewHolder{
 
         TextView fecha,
-                hora,
                 items,
                 precio;
 
         public PedidosViewHolder(@NonNull View itemView) {
             super(itemView);
             fecha=itemView.findViewById(R.id.textViewFecha);
-            hora=itemView.findViewById(R.id.textViewHora);
+
             items=itemView.findViewById(R.id.textViewItems);
             precio=itemView.findViewById(R.id.textViewPrecio);
         }

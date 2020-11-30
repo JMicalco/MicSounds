@@ -1,49 +1,64 @@
 package com.example.micsounds;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-public class Navigation extends AppCompatActivity implements View.OnClickListener {
+public class Navigation extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     ArrayList<InstrumentCategory> listaInstrumentos;
     RecyclerView recyclerView;
     Button fav, logout;
     FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navegation);
-        recyclerView=findViewById(R.id.recyclerViewInstruments);
-        listaInstrumentos=new ArrayList<>();
-        llenarInstrumentos();
-        InstrumentsAdapter instrumentsAdapter=new InstrumentsAdapter(listaInstrumentos, this);
-        LinearLayoutManager llm=new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
-        recyclerView.setAdapter(instrumentsAdapter);
+        setContentView(R.layout.drawer_navegation);
+        Toolbar toolbar=findViewById(R.id.toolbarv);
+        setSupportActionBar(toolbar);
+        drawerLayout=findViewById(R.id.drawer_layout);
+        NavigationView navigationView=findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        if(savedInstanceState==null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_home);
+        }
 
-        fav = findViewById(R.id.button2);
-        logout = findViewById(R.id.button5);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent i = new Intent(Navigation.this, MainActivity.class);
-                startActivity(i);
-            }
-        });
+    }
 
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } /*else if(getSupportFragmentManager().findFragmentById(R.id.fragment_container)!=null) {
+            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.fragment_container)).commit();
+        }*/ else {
+            super.onBackPressed();
+        }
     }
 
     public void gotoFav(View v){
@@ -60,12 +75,7 @@ public class Navigation extends AppCompatActivity implements View.OnClickListene
         startActivity(intent);
     }
 
-    private void llenarInstrumentos() {
-        listaInstrumentos.add(new InstrumentCategory("Guitars",R.drawable.guitars));
-        listaInstrumentos.add(new InstrumentCategory("Bass", R.drawable.bass));
-        listaInstrumentos.add(new InstrumentCategory("Drums", R.drawable.drum));
-        listaInstrumentos.add(new InstrumentCategory("Keyboards", R.drawable.keyboard));
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -84,4 +94,34 @@ public class Navigation extends AppCompatActivity implements View.OnClickListene
             startActivity(intentKeyboards);
         }
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.nav_home:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                break;
+            case R.id.nav_favorites:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FavoritesFragment()).commit();
+                break;
+            case R.id.nav_cart:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
+                break;
+            case R.id.nav_orders:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new OrdersFragment()).commit();
+                break;
+            case R.id.nav_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                break;
+            case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();
+                Intent i = new Intent(this, MainActivity.class);
+                startActivity(i);
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
 }

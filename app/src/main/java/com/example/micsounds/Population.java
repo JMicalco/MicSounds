@@ -9,21 +9,34 @@ public class Population {
     String name;
     int price;
     String imageUrl;
-
+    float rating;
     // Constructors
     public Population() {
 
     }
 
+    public Population(String name, int price, String imageUrl, float rating) {
+        this.name = name;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.rating = rating;
+    }
     public Population(String name, int price, String imageUrl) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
+
     }
 
     //getters and setters
     public String getName() {
         return name;
+    }
+
+    public void setRating(float rating) { this.rating = rating;}
+
+    public float getRating() {
+        return this.rating;
     }
 
     public void setName(String name) {
@@ -51,6 +64,7 @@ public class Population {
         result.put("name", name);
         result.put("price", price);
         result.put("image", imageUrl);
+        result.put("rating", rating);
 
         return result;
     }

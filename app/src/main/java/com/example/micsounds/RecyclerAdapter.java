@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,7 +63,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         TextView textViewName = view.findViewById(R.id.textView2);
         TextView textViewPrice = view.findViewById(R.id.textView3);
-
+        RatingBar ratingBar = view.findViewById(R.id.ratingBar6);
         Button btnCarrito= view.findViewById(R.id.btnCarrito2);
         btnCarrito.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +89,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         // price
         holder.textView3.setText(give$format(populationArrayList.get(position).getPrice()));
+
+        if(populationArrayList.get(position).getRating() != 66) {
+            holder.ratingBar.setRating(populationArrayList.get(position).getRating());
+        }
+
 
         // ImageView : Glide Library
         // Glide.with(this).load("http://goo.gl/gEgYUd").into(imageView);
@@ -144,6 +150,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Button btnCarrito;
         Button btnFav;
         Button btnCompartir;
+        RatingBar ratingBar;
+        Button btnSendRating;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -157,7 +165,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             btnCompartir = itemView.findViewById(R.id.btnCompartir);
             btnCompartir.setOnClickListener(this);
 
-
+            ratingBar = itemView.findViewById(R.id.ratingBar6);
+            btnSendRating = itemView.findViewById(R.id.button7);
+            btnSendRating.setOnClickListener(this);
 
             imageView = itemView.findViewById(R.id.imageView);
             textView  = itemView.findViewById(R.id.textView_2);
@@ -175,6 +185,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
             String image = populationArrayList.get(getAdapterPosition()).getImageUrl() + "";
 
+            float rating = populationArrayList.get(getAdapterPosition()).getRating();
             String user_id = mAuth.getCurrentUser().getUid();
 
             if (view.getId() == btnCarrito.getId()) {
@@ -183,7 +194,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                         .child("Users").child(user_id).child("Cart");
 
                 String key = cart_user_db.push().getKey();
-                Population item = new Population(name, price, image);
+                Population item = new Population(name, price, image, rating);
                 Map<String, Object> postValues = item.toMap();
 
                 Map<String, Object> childUpdates = new HashMap<>();
@@ -200,7 +211,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                         .child("Users").child(user_id).child("Favorites");
 
                 String key = cart_user_db.push().getKey();
-                Population item = new Population(name, price, image);
+                Population item = new Population(name, price, image, rating);
                 Map<String, Object> postValues = item.toMap();
 
                 Map<String, Object> childUpdates = new HashMap<>();
@@ -218,6 +229,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 intent.putExtra(Intent.EXTRA_SUBJECT,"ITEM");
                 intent.putExtra(Intent.EXTRA_TEXT,shareView);
                 mContext.startActivity(intent.createChooser(intent,"Compartir"));
+            } else if(view.getId() == btnSendRating.getId()){
+                float newRating = populationArrayList.get(getAdapterPosition()).getRating();
+              //  mDatabase.child("/Global/" + populationArrayList.get(getAdapterPosition()).name)
+
             }
 
         }

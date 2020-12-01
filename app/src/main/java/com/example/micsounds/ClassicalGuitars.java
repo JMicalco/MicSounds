@@ -89,6 +89,7 @@ public class ClassicalGuitars extends AppCompatActivity  { //----- CHANGE INSTAN
                     population.setImageUrl(snapshot.child("image").getValue().toString());
                     population.setName(snapshot.child("name").getValue().toString());
                     population.setPrice(Integer.parseInt(snapshot.child("price").getValue().toString()));
+                    population.setRating(Float.parseFloat(snapshot.child("rating").getValue().toString()));
 
                     populationsList.add(population);
                 }

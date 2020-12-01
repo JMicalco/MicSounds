@@ -6,17 +6,26 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="407dp"
+        android:layout_height="372dp"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="345dp">
+            android:layout_height="match_parent">
+
+            <RatingBar
+                android:id="@+id/ratingBar6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnFav"
+                android:layout_alignLeft="@id/btnCarrito2"
+                android:layout_centerHorizontal="false" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -78,6 +87,14 @@
                 android:layout_marginTop="271dp"
                 android:layout_marginEnd="25dp"
                 android:text="Share" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="103dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnCompartir"
+                android:layout_alignLeft="@id/btnCompartir"
+                android:text="send" />
 
         </RelativeLayout>
 

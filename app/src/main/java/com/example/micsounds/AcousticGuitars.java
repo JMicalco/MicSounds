@@ -70,7 +70,7 @@ public class AcousticGuitars extends AppCompatActivity { //----- CHANGE INSTANCE
         // Firebase
         DatabaseReference myBRef = myARef.child("Population");
         DatabaseReference myRef  = myBRef.child("Guitars"); //----- CHANGE INSTANCE -----
-        Query query = myRef.child("Acoustic"); //----- CHANGE INSTANCE -----
+        final Query query = myRef.child("Acoustic"); //----- CHANGE INSTANCE -----
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -87,7 +87,7 @@ public class AcousticGuitars extends AppCompatActivity { //----- CHANGE INSTANCE
                     populationsList.add(population);
                 }
 
-                recyclerAdapter = new RecyclerAdapter(getApplicationContext(), populationsList);
+                recyclerAdapter = new RecyclerAdapter(getApplicationContext(), populationsList, query.toString());
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerAdapter.notifyDataSetChanged();
             }

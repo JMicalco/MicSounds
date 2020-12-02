@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,7 @@ public class AcousticDrumsFragment extends Fragment {
 
     private DatabaseReference myARef;
     SearchView searchView;
-
+    Button btnSend;
     // Variables
     private ArrayList<Population> populationsList;
     private RecyclerAdapter recyclerAdapter;
@@ -41,6 +42,10 @@ public class AcousticDrumsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         searchView = view.findViewById(R.id.searchView);
+
+        btnSend = view.findViewById(R.id.button7);
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -73,7 +78,7 @@ public class AcousticDrumsFragment extends Fragment {
         // Firebase
         DatabaseReference myBRef = myARef.child("Population");
         DatabaseReference myRef  = myBRef.child("Drums"); //----- CHANGE INSTANCE -----
-        Query query = myRef.child("Acoustic"); //----- CHANGE INSTANCE -----
+        final Query query = myRef.child("Acoustic"); //----- CHANGE INSTANCE -----
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -90,7 +95,7 @@ public class AcousticDrumsFragment extends Fragment {
                     populationsList.add(population);
                 }
 
-                recyclerAdapter = new RecyclerAdapter(getActivity(), populationsList);
+                recyclerAdapter = new RecyclerAdapter(getActivity(), populationsList, query.toString());
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerAdapter.notifyDataSetChanged();
             }

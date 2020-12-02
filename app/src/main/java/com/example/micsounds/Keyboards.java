@@ -70,7 +70,7 @@ public class Keyboards extends AppCompatActivity { //----- CHANGE INSTANCE -----
         //Aqui se pone el instrumento
         // Firebase
         DatabaseReference myRef = myARef.child("Population");
-        Query query = myRef.child("Keyboards"); //----- CHANGE INSTANCE -----
+        final Query query = myRef.child("Keyboards"); //----- CHANGE INSTANCE -----
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,7 +86,7 @@ public class Keyboards extends AppCompatActivity { //----- CHANGE INSTANCE -----
                     populationsList.add(population);
                 }
 
-                recyclerAdapter = new RecyclerAdapter(getApplicationContext(), populationsList);
+                recyclerAdapter = new RecyclerAdapter(getApplicationContext(), populationsList, query.toString());
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerAdapter.notifyDataSetChanged();
             }

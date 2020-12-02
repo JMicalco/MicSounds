@@ -34,15 +34,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private ArrayList<Population> populationArrayList, copylist;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private String path;
+RatingBar r;
     private boolean cart;
 
-    public RecyclerAdapter(Context mContext, ArrayList<Population> populationArrayList) {
+    public RecyclerAdapter(Context mContext, ArrayList<Population> populationArrayList, String path) {
         this.mContext = mContext;
         this.populationArrayList = populationArrayList;
+        this.path = path;
         this.copylist = new ArrayList<>(populationArrayList);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         cart = false;
+
     }
 
     public String give$format(double num) {
@@ -60,11 +64,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.population_item, parent, false);// ---------change
-
         TextView textViewName = view.findViewById(R.id.textView2);
         TextView textViewPrice = view.findViewById(R.id.textView3);
         RatingBar ratingBar = view.findViewById(R.id.ratingBar6);
         Button btnCarrito= view.findViewById(R.id.btnCarrito2);
+         r = view.findViewById(R.id.ratingBar6);
+
         btnCarrito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +84,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 //Toast.makeText(mContext, "Favoritos", Toast.LENGTH_SHORT).show();
             }
         });
+
         return  new ViewHolder(view);
     }
 
@@ -230,8 +236,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 intent.putExtra(Intent.EXTRA_TEXT,shareView);
                 mContext.startActivity(intent.createChooser(intent,"Compartir"));
             } else if(view.getId() == btnSendRating.getId()){
-                float newRating = populationArrayList.get(getAdapterPosition()).getRating();
-              //  mDatabase.child("/Global/" + populationArrayList.get(getAdapterPosition()).name)
+                float newRating = r.getRating();
+                float oldRating = copylist.get(getAdapterPosition()).getRating();
+                 float newAvg = (newRating + oldRating) / 2;
+                 r.setRating(newAvg);
+                path = path.replace("https://micsounds-mobile.firebaseio.com", "");
+                Toast.makeText(mContext,  path, Toast.LENGTH_LONG).show();
+
+                mDatabase.child(path + "/00"+ (getAdapterPosition()+1)  + "/rating").setValue(newAvg);
 
             }
 

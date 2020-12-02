@@ -73,7 +73,7 @@ public class BassFragment extends Fragment {
         //Aqui se pone el instrumento
         // Firebase
         DatabaseReference myRef = myARef.child("Population");
-        Query query = myRef.child("Bass"); //----- CHANGE INSTANCE -----
+        final Query query = myRef.child("Bass"); //----- CHANGE INSTANCE -----
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -90,7 +90,7 @@ public class BassFragment extends Fragment {
                     populationsList.add(population);
                 }
 
-                recyclerAdapter = new RecyclerAdapter(getActivity(), populationsList);
+                recyclerAdapter = new RecyclerAdapter(getActivity(), populationsList, query.toString());
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerAdapter.notifyDataSetChanged();
             }

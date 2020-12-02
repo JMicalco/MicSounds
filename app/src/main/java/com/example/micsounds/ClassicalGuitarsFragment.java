@@ -82,7 +82,7 @@ public class ClassicalGuitarsFragment extends Fragment {
         // Firebase
         DatabaseReference myBRef = myARef.child("Population");
         DatabaseReference myRef  = myBRef.child("Guitars"); //----- CHANGE INSTANCE -----
-        Query query = myRef.child("Classic"); //----- CHANGE INSTANCE -----
+        final Query query = myRef.child("Classic"); //----- CHANGE INSTANCE -----
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -99,7 +99,7 @@ public class ClassicalGuitarsFragment extends Fragment {
                     populationsList.add(population);
                 }
                 copylist = new ArrayList<>(populationsList);
-                recyclerAdapter = new RecyclerAdapter(getActivity(), populationsList);
+                recyclerAdapter = new RecyclerAdapter(getActivity(), populationsList, query.toString());
                 recyclerView.setAdapter(recyclerAdapter);
                 recyclerAdapter.notifyDataSetChanged();
             }

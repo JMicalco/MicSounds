@@ -22,11 +22,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.module.AppGlideModule;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -42,6 +47,7 @@ public class Navigation extends AppCompatActivity implements View.OnClickListene
     private DrawerLayout drawerLayout;
     FirebaseUser user_id;
     private DatabaseReference mDatabase;
+    private StorageReference storageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,10 +155,17 @@ public class Navigation extends AppCompatActivity implements View.OnClickListene
         if(user_id.getDisplayName()!=null){
             userName.setText(user_id.getDisplayName());
         }
+        //String photoUrl=user_id.getPhotoUrl().toString();
+        /*if(user_id.getPhotoUrl()!=null){
 
-        if(user_id.getPhotoUrl()!=null){
-            Glide.with(this).load(user_id.getPhotoUrl()).into(userImage);
-        }
-        String photoUrl=user_id.getPhotoUrl().toString();
+        }*/
+        String user_idd=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Task storageReference=FirebaseStorage.getInstance().getReferenceFromUrl("gs://micsounds-mobile.appspot.com/profileImages/"+user_idd+".jpeg").getDownloadUrl();
+        Log.w("het3",storageReference.toString());
+        GlideApp.with(this)
+                .load("https://firebasestorage.googleapis.com/v0/b/micsounds-mobile.appspot.com/o/profileImages%2F"+user_idd+".jpeg"+"?alt=media&token="+storageReference)
+                .into(userImage);
+        Log.w("het",storageReference.toString());
+        Log.w("het2",user_idd);
     }
 }

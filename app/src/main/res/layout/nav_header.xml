@@ -9,10 +9,11 @@
 
     <ImageView
         android:id="@+id/user_Image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:layout_width="120dp"
+        android:layout_height="96dp"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher_round" />
+
     <TextView
         android:id="@+id/user_Name"
         android:layout_width="wrap_content"

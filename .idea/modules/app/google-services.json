@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "678220753098",
+    "firebase_url": "https://micsounds-mobile.firebaseio.com",
+    "project_id": "micsounds-mobile",
+    "storage_bucket": "micsounds-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678220753098:android:bf692a2bc9d7c5007b2c33",
+        "android_client_info": {
+          "package_name": "com.example.micsounds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "678220753098-49a8i8j6ma0q0auivt87ape5ckg7o50j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.micsounds",
+            "certificate_hash": "575b5a6e23e392054b5fd3caa65629dbfccda634"
+          }
+        },
+        {
+          "client_id": "678220753098-nlv7gogegbjnb37jgg3bhar2d6an8qkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZDhlihzKihJkkCc5JsGGMzGz7S7JQT-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "678220753098-nlv7gogegbjnb37jgg3bhar2d6an8qkh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

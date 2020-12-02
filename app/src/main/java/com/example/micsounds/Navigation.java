@@ -13,17 +13,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class Navigation extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+
+
 
     ArrayList<InstrumentCategory> listaInstrumentos;
     RecyclerView recyclerView;
@@ -31,10 +40,13 @@ public class Navigation extends AppCompatActivity implements View.OnClickListene
     FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DrawerLayout drawerLayout;
+    FirebaseUser user_id;
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_navegation);
+        mAuth = FirebaseAuth.getInstance();
         Toolbar toolbar=findViewById(R.id.toolbarv);
         setSupportActionBar(toolbar);
         drawerLayout=findViewById(R.id.drawer_layout);
@@ -47,6 +59,10 @@ public class Navigation extends AppCompatActivity implements View.OnClickListene
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        user_id = mAuth.getCurrentUser();
+
+        updateDrawer();
 
     }
 
@@ -123,5 +139,20 @@ public class Navigation extends AppCompatActivity implements View.OnClickListene
         return true;
     }
 
+    public void updateDrawer(){
+        NavigationView navigationView=findViewById(R.id.nav_view);
+        View headerView=navigationView.getHeaderView(0);
+        TextView userMail= headerView.findViewById(R.id.user_mail);
+        TextView userName= headerView.findViewById(R.id.user_Name);
+        ImageView userImage=headerView.findViewById(R.id.user_Image);
+        userMail.setText(user_id.getEmail());
+        if(user_id.getDisplayName()!=null){
+            userName.setText(user_id.getDisplayName());
+        }
 
+        if(user_id.getPhotoUrl()!=null){
+            Glide.with(this).load(user_id.getPhotoUrl()).into(userImage);
+        }
+        String photoUrl=user_id.getPhotoUrl().toString();
+    }
 }

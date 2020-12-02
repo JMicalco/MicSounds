@@ -9,8 +9,8 @@
         android:id="@+id/cardView"
         android:layout_width="427dp"
         android:layout_height="361dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
         app:cardBackgroundColor="#212121"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +19,7 @@
         tools:ignore="NotSibling">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="439dp"
             android:layout_height="360dp">
 
             <TextView

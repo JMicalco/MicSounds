@@ -23,9 +23,11 @@ import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText user;
-    EditText password;
-    Button register;
+    private EditText user;
+    private EditText password,
+                    cpassword;
+    private EditText name;
+    private Button register;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
@@ -36,12 +38,13 @@ public class SignUpActivity extends AppCompatActivity {
         user = findViewById(R.id.editTextTextPersonName3);
         password = findViewById(R.id.editTextTextPassword2);
         register = findViewById(R.id.button6);
+        cpassword=findViewById(R.id.editTextTextPassword5);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser mUser = mAuth.getCurrentUser();
                 if(mUser != null){
-                    Toast.makeText(SignUpActivity.this, "you are logged in", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(SignUpActivity.this, Navigation.class);
                     startActivity(intent);
                 } else{
@@ -55,18 +58,23 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = user.getText().toString();
                 String pwd = password.getText().toString();
+                String nm=name.getText().toString();
+                String cpwd=cpassword.getText().toString();
                 if (email.isEmpty()) {
                     user.setError("Please enter email");
                     user.requestFocus();
                 } else if (pwd.isEmpty()) {
                     password.setError("enter password");
                     password.requestFocus();
-                } else if (!(email.isEmpty() && pwd.isEmpty())) {
+                } else if(!cpwd.equals(pwd)) {
+                    name.setError("Passwords don't match");
+                    name.requestFocus();
+                }else if (!(email.isEmpty() && pwd.isEmpty())) {
                     mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(SignUpActivity.this, "Sign Up error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, "Unable to sign in", Toast.LENGTH_SHORT).show();
 
                             } else {
                                 String user_id = mAuth.getCurrentUser().getUid();

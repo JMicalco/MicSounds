@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -60,6 +61,7 @@ public class CartFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+
         /*searchView = findViewById(R.id.searchView3);
         searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
             @Override
@@ -74,6 +76,14 @@ public class CartFragment extends Fragment {
                 return false;
             }
         });*/
+
+        Button buttonCheCkout=view.findViewById(R.id.btnCheckOut);
+        buttonCheCkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkout(view);
+            }
+        });
 
         mContext = getActivity();
 

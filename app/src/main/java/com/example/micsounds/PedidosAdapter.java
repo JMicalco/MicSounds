@@ -46,6 +46,8 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidosV
 
         holder.items.setText(ordersArrayList.get(position).getItems());
         holder.precio.setText(ordersArrayList.get(position).getPrice());
+        holder.name.setText(ordersArrayList.get(position).getName());
+        holder.shipment.setText(ordersArrayList.get(position).getShipment());
     }
 
     @Override
@@ -57,14 +59,17 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidosV
 
         TextView fecha,
                 items,
-                precio;
+                precio,
+                name,
+                shipment;
 
         public PedidosViewHolder(@NonNull View itemView) {
             super(itemView);
             fecha=itemView.findViewById(R.id.textViewFecha);
-
             items=itemView.findViewById(R.id.textViewItems);
             precio=itemView.findViewById(R.id.textViewPrecio);
+            name = itemView.findViewById(R.id.textViewName);
+            shipment = itemView.findViewById(R.id.textViewShiping);
         }
     }
 }

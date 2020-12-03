@@ -6,9 +6,28 @@ import java.util.Map;
 
 public class OrdersInfo {
 
-    private String date,
-                    items,
-                    price;
+    private String date;
+    private String items;
+    private String price;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getShipment() {
+        return shipment;
+    }
+
+    public void setShipment(String shipment) {
+        this.shipment = shipment;
+    }
+
+    private String shipment;
 
     public OrdersInfo() {
 
@@ -18,6 +37,7 @@ public class OrdersInfo {
         this.date = date;
         this.items = items;
         this.price = price;
+
     }
 
     public String getDate() {
@@ -52,6 +72,5 @@ public class OrdersInfo {
 
         return result;
     }
-
 
 }

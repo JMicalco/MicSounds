@@ -1,15 +1,17 @@
 package com.example.micsounds;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Population {
+public class Population implements Serializable {
 
     // Model Class
     String name;
     int price;
     String imageUrl;
     float rating;
+    int amount;
     // Constructors
     public Population() {
 

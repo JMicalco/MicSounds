@@ -1,6 +1,7 @@
 package com.example.micsounds;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -160,97 +161,36 @@ public class CartFragment extends Fragment {
         populationArrayList = new ArrayList<>();
     }
 
-    public String give$format(double num) {
 
-        NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
-        return "MX: " + defaultFormat.format(num);
-
-    }
 
     public void checkout(View view) {
 
-        //agregar al historial
-
-        String nombres = "";
-        int total = 0;
-        String date = Calendar.getInstance().getTime().toString();
 
 
-        for (int i = 0; i < populationArrayList.size(); i++) {
+
+        /*for (int i = 0; i < populationArrayList.size(); i++) {
+
+            Population population = populationArrayList.get(i);
+            population.amount = recyclerView.getChildAdapterPosition(view).   findViewById(R.id.editTextAmount);
+
+            populationArrayList.set(i, )
 
             nombres += populationArrayList.get(i).getName() + ", ";
             total += populationArrayList.get(i).getPrice();
 
-        }
+        }*/
 
-        String price = give$format(total);
+        // go to Checkout
 
-        OrdersInfo ordersInfo = new OrdersInfo(date, nombres, price);
-
-        DatabaseReference orders_user_db = FirebaseDatabase.getInstance().getReference()
-                .child("Users").child(user_id).child("Orders");
-
-        String key = orders_user_db.push().getKey();
-
-        Map<String, Object> postValues = ordersInfo.toMap();
-
-        Map<String, Object> childUpdates = new HashMap<>();
-
-        childUpdates.put("/Users/" + user_id + "/Orders/" + key, postValues);
-
-        mDatabase.updateChildren(childUpdates);
+        Intent intent = new Intent(getActivity(), Checkout.class);
+        intent.putExtra("Carrito", populationArrayList);
+        startActivity(intent);
 
 
-
-
-        //borrar del carrito
-
-        Query query = cart_user_db; //----- CHANGE INSTANCE -----
-
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                int index = 0;
-
-                if(index != -1) {
-
-                    //Log.wtf("adapter",getAdapterPosition() + "");
-
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-
-                        if (!snapshot.hasChildren()) {
-                            continue;
-                        } else {
-                            snapshot.getRef().removeValue();
-                            populationArrayList.remove(0);
-                        }
-                        //index++;
-
-                    }
-
-//                        recyclerAdapter = new CarritoAdapter(getApplicationContext(), populationsList);
-//                        recyclerView.setAdapter(recyclerAdapter);
-//                        recyclerAdapter.notifyDataSetChanged();
-
-                    //Toast.makeText(mContext, "borrado del carrito", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-        });
 
 
         Toast.makeText(getActivity(), "Pagado!",Toast.LENGTH_SHORT).show();
 
-        /*Intent intent = new Intent(this, Checkout.class);
-        //intent.putExtra("Carrito", populationsList);
-        startActivity(intent);*/
+
     }
 }

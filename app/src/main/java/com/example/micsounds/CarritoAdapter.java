@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -136,6 +137,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
         TextView textView;
         TextView textView3;
         Button eliminar;
+        EditText amount;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -144,6 +146,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
             textView = itemView.findViewById(R.id.textViewC1);
             textView3 = itemView.findViewById(R.id.textViewC2);
             eliminar = itemView.findViewById(R.id.btnEliminar);
+            amount = itemView.findViewById(R.id.editTextAmount);
 
             eliminar.setOnClickListener(this);
         }

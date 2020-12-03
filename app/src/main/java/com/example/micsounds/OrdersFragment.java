@@ -118,6 +118,12 @@ public class OrdersFragment extends Fragment {
                     ordersInfo.setDate(snapshot.child("date").getValue().toString());
                     ordersInfo.setPrice(snapshot.child("price").getValue().toString());
 
+                    if(snapshot.child("name").exists() && snapshot.child("shipment").exists()) {
+                        ordersInfo.setName(snapshot.child("name").getValue().toString());
+                        ordersInfo.setShipment(snapshot.child("shipment").getValue().toString());
+                    }
+
+
 
 
                     ordersArrayList.add(ordersInfo);

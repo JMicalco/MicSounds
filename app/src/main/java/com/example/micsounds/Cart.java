@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -162,12 +161,7 @@ public class Cart extends AppCompatActivity { //----- CHANGE INSTANCE -----
         String date = Calendar.getInstance().getTime().toString();
 
 
-        for (int i = 0; i < populationArrayList.size(); i++) {
 
-            nombres += populationArrayList.get(i).getName() + ", ";
-            total += populationArrayList.get(i).getPrice();
-
-        }
 
         String price = give$format(total);
 

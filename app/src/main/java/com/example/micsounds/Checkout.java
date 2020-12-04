@@ -272,15 +272,32 @@ public class Checkout extends AppCompatActivity {
 
         postValues.putAll(check);
 
+        String msg = postValues.toString();
+
         Map<String, Object> childUpdates = new HashMap<>();
 
         childUpdates.put("/Users/" + user_id + "/Orders/" + key, postValues);
 
         mDatabase.updateChildren(childUpdates);
 
+        Intent intent2 = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("mailto:" + checkoutInfo.getEmail()));
+        intent2.putExtra(Intent.EXTRA_SUBJECT, "Order Info");
+        intent2.putExtra(Intent.EXTRA_TEXT, msg);
+        startActivityForResult(intent2, 1);
+
+        //onActivityResult(RESULT_OK, RESULT_OK, null);
+
         /*Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.setType("text/plain");*/
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
         //borrar del carrito
 
@@ -327,6 +344,7 @@ public class Checkout extends AppCompatActivity {
 
         Intent intent=new Intent(Checkout.this, Navigation.class);
         startActivity(intent);
+
     }
 
 }

@@ -8,23 +8,21 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAcousticGuitars"
-        android:layout_width="405dp"
-        android:layout_height="622dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView3"/>
 
     <SearchView
         android:id="@+id/searchView3"
-        android:layout_width="381dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="366dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="9dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewAcousticGuitars"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

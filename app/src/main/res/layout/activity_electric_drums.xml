@@ -8,20 +8,19 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewElectricDrums"
-        android:layout_width="419dp"
-        android:layout_height="604dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="36dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView5" />
 
     <SearchView
         android:id="@+id/searchView5"
-        android:layout_width="381dp"
-        android:layout_height="45dp"
+        android:layout_width="366dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="9dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewElectricDrums"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -69,7 +69,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         TextView textViewPrice = view.findViewById(R.id.textView3);
         RatingBar ratingBar = view.findViewById(R.id.ratingBar6);
         Button btnCarrito= view.findViewById(R.id.btnCarrito2);
-         r = view.findViewById(R.id.ratingBar6);
+        r = (RatingBar) view.findViewById(R.id.ratingBar6);
 
         btnCarrito.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,9 +176,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             btnCompartir = itemView.findViewById(R.id.btnCompartir);
             btnCompartir.setOnClickListener(this);
 
-            ratingBar = itemView.findViewById(R.id.ratingBar6);
+            ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar6);
             btnSendRating = itemView.findViewById(R.id.button7);
             btnSendRating.setOnClickListener(this);
+            ratingBar.setOnClickListener(this);
 
             imageView = itemView.findViewById(R.id.imageView);
             textView  = itemView.findViewById(R.id.textView_2);
@@ -255,12 +256,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 intent.putExtra(Intent.EXTRA_TEXT,shareView);
                 mContext.startActivity(intent.createChooser(intent,"Compartir"));
             } else if(view.getId() == btnSendRating.getId()){
-                float newRating = r.getRating();
-                float oldRating = copylist.get(getAdapterPosition()).getRating();
+                float newRating = ratingBar.getRating();
+                float oldRating = populationArrayList.get(getAdapterPosition()).getRating();
+
                  float newAvg = (newRating + oldRating) / 2;
                  r.setRating(newAvg);
                 path = path.replace("https://micsounds-mobile.firebaseio.com", "");
-                Toast.makeText(mContext,  path, Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext,  newRating + " + " + oldRating +"= "+ newAvg, Toast.LENGTH_LONG).show();
 
                 mDatabase.child(path + "/00"+ (getAdapterPosition()+1)  + "/rating").setValue(newAvg);
 

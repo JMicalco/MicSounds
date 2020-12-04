@@ -262,7 +262,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                  float newAvg = (newRating + oldRating) / 2;
                  r.setRating(newAvg);
                 path = path.replace("https://micsounds-mobile.firebaseio.com", "");
-                Toast.makeText(mContext,  newRating + " + " + oldRating +"= "+ newAvg, Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext,  "Rating enviado exitosamente", Toast.LENGTH_LONG).show();
 
                 mDatabase.child(path + "/00"+ (getAdapterPosition()+1)  + "/rating").setValue(newAvg);
 

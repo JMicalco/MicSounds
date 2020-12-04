@@ -39,6 +39,8 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
+    ViewHolder vh;
+
     String user_id;
     DatabaseReference cart_user_db;
 
@@ -133,6 +135,8 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+
+
         ImageView imageView;
         TextView textView;
         TextView textView3;
@@ -146,11 +150,10 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
             textView = itemView.findViewById(R.id.textViewC1);
             textView3 = itemView.findViewById(R.id.textViewC2);
             eliminar = itemView.findViewById(R.id.btnEliminar);
-            amount = itemView.findViewById(R.id.editTextAmount);
+            //amount = itemView.findViewById(R.id.editTextAmount);
 
             eliminar.setOnClickListener(this);
         }
-
 
         @Override
         public void onClick(View view) {

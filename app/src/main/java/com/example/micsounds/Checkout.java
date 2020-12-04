@@ -191,6 +191,12 @@ public class Checkout extends AppCompatActivity {
                     population.setName(snapshot.child("name").getValue().toString());
                     population.setPrice(Integer.parseInt(snapshot.child("price").getValue().toString()));
 
+                    if(snapshot.child("amount").exists()) {
+                        population.amount = Integer.parseInt(snapshot.child("amount").getValue().toString());//maybe needs a try catch
+                    } else {
+                        population.amount = 1;
+                    }
+
                     populationsList.add(population);
                 }
 
@@ -237,8 +243,12 @@ public class Checkout extends AppCompatActivity {
 
         for (int i = 0; i < populationsList.size(); i++) {
 
-            nombres += populationsList.get(i).getName() + ", ";
-            total += populationsList.get(i).getPrice();
+            for(int j = 0; j < populationsList.get(i).amount; j++) {
+                nombres += populationsList.get(i).getName() + ", ";
+                total += populationsList.get(i).getPrice();
+            }
+
+
 
         }
 
@@ -268,9 +278,9 @@ public class Checkout extends AppCompatActivity {
 
         mDatabase.updateChildren(childUpdates);
 
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        /*Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
+        emailIntent.setType("text/plain");*/
 
         //borrar del carrito
 

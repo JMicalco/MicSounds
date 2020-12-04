@@ -22,12 +22,13 @@ public class Population implements Serializable {
         this.price = price;
         this.imageUrl = imageUrl;
         this.rating = rating;
+        this.amount = 1;
     }
     public Population(String name, int price, String imageUrl) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
-
+        this.amount = 1;
     }
 
     //getters and setters
@@ -67,6 +68,7 @@ public class Population implements Serializable {
         result.put("price", price);
         result.put("image", imageUrl);
         result.put("rating", rating);
+        result.put("amount", amount);
 
         return result;
     }

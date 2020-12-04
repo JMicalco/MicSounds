@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -35,7 +36,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private String path;
-RatingBar r;
+    RatingBar r;
     private boolean cart;
 
     public RecyclerAdapter(Context mContext, ArrayList<Population> populationArrayList, String path) {
@@ -159,8 +160,12 @@ RatingBar r;
         RatingBar ratingBar;
         Button btnSendRating;
 
+        EditText amount;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            amount = itemView.findViewById(R.id.editTextAmount);
 
             btnCarrito = itemView.findViewById(R.id.btnCarrito2);
             btnCarrito.setOnClickListener(this);
@@ -194,6 +199,19 @@ RatingBar r;
             float rating = populationArrayList.get(getAdapterPosition()).getRating();
             String user_id = mAuth.getCurrentUser().getUid();
 
+            int amountInt = 1;
+
+            try {
+                amountInt = Integer.parseInt(amount.getText().toString());
+            } catch (NumberFormatException e) {
+
+            }
+
+            if(amountInt < 1 || amountInt > 10) {
+                amountInt = 1;
+            }
+
+
             if (view.getId() == btnCarrito.getId()) {
 
                 DatabaseReference cart_user_db = FirebaseDatabase.getInstance().getReference()
@@ -201,6 +219,7 @@ RatingBar r;
 
                 String key = cart_user_db.push().getKey();
                 Population item = new Population(name, price, image, rating);
+                item.amount = amountInt;
                 Map<String, Object> postValues = item.toMap();
 
                 Map<String, Object> childUpdates = new HashMap<>();

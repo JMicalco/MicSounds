@@ -132,6 +132,12 @@ public class CartFragment extends Fragment {
                     population.setName(snapshot.child("name").getValue().toString());
                     population.setPrice(Integer.parseInt(snapshot.child("price").getValue().toString()));
 
+                    if(snapshot.child("amount").exists()) {
+                        population.amount = Integer.parseInt(snapshot.child("amount").getValue().toString());//maybe needs a try catch
+                    }
+
+
+
                     populationArrayList.add(population);
                 }
 
@@ -189,7 +195,7 @@ public class CartFragment extends Fragment {
 
 
 
-        Toast.makeText(getActivity(), "Pagado!",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "a!",Toast.LENGTH_SHORT).show();
 
 
     }

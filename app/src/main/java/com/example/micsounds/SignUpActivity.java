@@ -58,7 +58,6 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = user.getText().toString();
                 String pwd = password.getText().toString();
-                String nm=name.getText().toString();
                 String cpwd=cpassword.getText().toString();
                 if (email.isEmpty()) {
                     user.setError("Please enter email");
@@ -67,8 +66,8 @@ public class SignUpActivity extends AppCompatActivity {
                     password.setError("enter password");
                     password.requestFocus();
                 } else if(!cpwd.equals(pwd)) {
-                    name.setError("Passwords don't match");
-                    name.requestFocus();
+                    cpassword.setError("Passwords don't match");
+                    cpassword.requestFocus();
                 }else if (!(email.isEmpty() && pwd.isEmpty())) {
                     mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override

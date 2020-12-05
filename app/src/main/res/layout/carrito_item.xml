@@ -7,8 +7,12 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewCarritoItem"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="382dp"
+        android:layout_height="329dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,7 +25,7 @@
                 android:id="@+id/imageViewCarrito"
                 android:layout_width="202dp"
                 android:layout_height="162dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.507"
                 app:layout_constraintStart_toStartOf="parent"
@@ -30,40 +34,46 @@
 
             <TextView
                 android:id="@+id/textViewC1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="106dp"
+                android:layout_height="46dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="32dp"
                 android:text="TextView"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnEliminar"
+                app:layout_constraintHorizontal_bias="0.804"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewCarrito" />
+                app:layout_constraintTop_toBottomOf="@+id/imageViewCarrito"
+                app:layout_constraintVertical_bias="0.033" />
 
             <TextView
                 android:id="@+id/textViewC2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="103dp"
+                android:layout_height="26dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="32dp"
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/btnEliminar"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewCarrito" />
+                app:layout_constraintTop_toBottomOf="@+id/imageViewCarrito"
+                app:layout_constraintVertical_bias="0.0" />
 
             <Button
                 android:id="@+id/btnEliminar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="164dp"
+                android:layout_marginStart="156dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="40dp"
                 android:text="Delete"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnCarrito2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewCarrito" />
+                app:layout_constraintTop_toBottomOf="@+id/imageViewCarrito"
+                app:layout_constraintVertical_bias="0.822" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

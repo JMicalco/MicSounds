@@ -162,7 +162,7 @@ public class Navigation extends AppCompatActivity implements View.OnClickListene
                 urlEmpty="https://firebasestorage.googleapis.com/v0/b/micsounds-mobile.appspot.com/o/profileImages%2F.jpeg";
         if(url==urlEmpty){userImage.setImageResource(R.drawable.bass);
         } else {
-            StorageReference storageReference=FirebaseStorage.getInstance().getReferenceFromUrl("gs://com.MicSounds.com.MicSounds.com.MicSounds.micsounds-mobile.appspot.com/profileImages/"+user_idd+".jpeg");
+            StorageReference storageReference=FirebaseStorage.getInstance().getReferenceFromUrl("gs://micsounds-mobile.appspot.com/profileImages/"+user_idd+".jpeg");
             Task storageTask=storageReference.getDownloadUrl();
             Log.w("heyy", url+"?alt=media&token="+storageTask);
             GlideApp.with(this)

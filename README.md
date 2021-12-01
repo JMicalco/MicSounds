@@ -2,8 +2,9 @@
 
 Android mobile app that simulates an musician instrument online store created with Android Studio with Firebase
 
-![login](/images/Login.jpeg)
-![Categories](/images/Categories.jpeg)
+![login](/Images/Login.jpeg)
+![Categories](/Images/Categories.jpeg)
+
 
 ## Features
 
@@ -13,8 +14,8 @@ Android mobile app that simulates an musician instrument online store created wi
 - View your orders
 - Rank insturments
 
-![Acoustic](/images/AcousticGuitars.jpeg)
-![Guitars](/images/Guitars.jpeg)
+![Acoustic](/Images/AcousticGuitars.jpeg)
+![Guitars](/Images/Guitars.jpeg)
 
 ## Technologies
 

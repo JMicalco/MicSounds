@@ -40,13 +40,7 @@
 
 Android mobile app that simulates an musician instrument online store created with Android Studio with Firebase
 
-<<<<<<< HEAD
 <p align="right">(<a href="#top">back to top</a>)</p>
-=======
-![login](/Images/Login.jpeg)
-![Categories](/Images/Categories.jpeg)
-
->>>>>>> 3c4cbacd673f578c887f6bd04b47108ff25cdb95
 
 ### Built With
 
@@ -63,7 +57,6 @@ Android mobile app that simulates an musician instrument online store created wi
 - View your orders
 - Rank insturments
 
-<<<<<<< HEAD
 <p align="center">
 <img src="./Images/AcousticGuitars.jpeg" wwidth="500" height="500">
 <img src="./Images/Guitars.jpeg" wwidth="500" height="500">
@@ -79,10 +72,6 @@ Android mobile app that simulates an musician instrument online store created wi
 José Adolfo Sánchez Micalco - [@Joseph_Micalco](https://twitter.com/Joseph_Micalco) - jmicalco@gmail.com - [Linkedin][linkedin-url]
 
 Project Link: [https://github.com/JMicalco/Paint3D](https://github.com/JMicalco/Paint3D)
-=======
-![Acoustic](/Images/AcousticGuitars.jpeg)
-![Guitars](/Images/Guitars.jpeg)
->>>>>>> 3c4cbacd673f578c887f6bd04b47108ff25cdb95
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
